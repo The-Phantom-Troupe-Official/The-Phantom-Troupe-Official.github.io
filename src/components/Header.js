@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logoHeader from '../Images/yak_computers_logo_header.png';
+import logoHeader from '../Images/logoheader.png';
 import Login from '../Screens/Login';
 
 function Header() {

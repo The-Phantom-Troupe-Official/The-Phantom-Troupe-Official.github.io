@@ -1,9 +1,9 @@
 import React from 'react';
+import Image1 from '../Images/PC.png';
 
 const RelatedProducts = () => {
   const relatedProducts = [
-    { id: 1, name: 'Product 1', price: 1200, image: 'placeholder.jpg' },
-    // Add more products here
+    { id: 1, name: 'Product 1', price: 1200, image: {Image1} },
   ];
 
   return (

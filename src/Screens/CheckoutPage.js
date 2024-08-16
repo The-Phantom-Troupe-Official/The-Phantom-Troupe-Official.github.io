@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logoHeader from '../Images/yak_computers_logo_header.png';
+import logoHeader from '../Images/logoheader.png';
 import Footer from '../components/Footer';
 import BillingAddressForm from '../components/BillingAddressForm';
 import ShippingOption from '../components/ShippingOption';

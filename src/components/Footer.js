@@ -2,8 +2,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import logoFooter from '../Images/yak_computers_logo_footer.png'
-import PaymentMethods from '../Images/payment-removebg-preview.png'
+import logoFooter from '../Images/footerLogo.png'
+import PaymentMethods from '../Images/payment.png'
 
 const Footer = () => {
   return (
