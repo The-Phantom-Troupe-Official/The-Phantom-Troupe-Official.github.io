@@ -10,7 +10,8 @@
 
 # production
 
-
+ren "—Pngtree—water cooled gaming pc with_15318038 1.6f338843ad36c5c341cf.png" "gaming-pc.png"
+—Pngtree—water cooled gaming pc with_15318038 1.6f338843ad36c5c341cf
 # misc
 .DS_Store
 .env.local
