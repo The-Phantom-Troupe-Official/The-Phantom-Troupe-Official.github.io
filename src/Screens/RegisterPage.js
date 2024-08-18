@@ -29,7 +29,7 @@ const RegisterPage = ({ isOpen, onClose, onSwitchToLogin }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000', {
+      const response = await fetch('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
