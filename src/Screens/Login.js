@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -19,10 +19,7 @@ const Login = (props) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const userData = {
-      email,
-      password,
-    };
+    const userData = { email, password };
 
     try {
       const response = await fetch('http://your-backend-endpoint.com/api/login', {
@@ -35,10 +32,16 @@ const Login = (props) => {
 
       if (response.ok) {
         const result = await response.json();
-        navigate('/dashboard');
+
+        // Assuming a success flag or similar logic
+        if (result.success) {
+          navigate('/homepage');  // Redirect to the homepage
+        } else {
+          setError(result.message || 'Unable to Login');
+        }
       } else {
         const error = await response.json();
-        setError(error.message || 'Login failed');
+        setError(error.message || 'Unable to Login');
       }
     } catch (error) {
       setError(`Error: ${error.message}`);
@@ -54,19 +57,31 @@ const Login = (props) => {
         {props.name}
       </button>
 
-      <Modal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} className="flex justify-center items-center p-4 md:p-6">
+      <Modal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        className="flex justify-center items-center p-4 md:p-6"
+      >
         <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold mb-6 text-center">
             <span className='text-blue-500'>Login | </span>
-            <button onClick={() => {
-              setIsLoginModalOpen(false);
-              setIsRegisterModalOpen(true);
-            }} className="text-blue-500 hover:text-blue-700">Register</button>
+            <button
+              onClick={() => {
+                setIsLoginModalOpen(false);
+                setIsRegisterModalOpen(true);
+              }}
+              className="text-blue-500 hover:text-blue-700"
+            >
+              Register
+            </button>
           </h2>
           {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
           <form onSubmit={handleLogin}>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="email"
+              >
                 Enter your email and password to login.
               </label>
               <input
@@ -76,6 +91,7 @@ const Login = (props) => {
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <div className="mb-4 relative">
@@ -85,6 +101,7 @@ const Login = (props) => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder='Enter Password'
                 className="w-full p-2 border border-gray-300 rounded"
+                required
               />
               <button
                 type="button"
@@ -113,19 +130,19 @@ const Login = (props) => {
           </div>
           <div className="flex flex-col items-center space-y-3 mt-4">
             <button className="bg-white text-gray-700 border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100 w-full md:w-64 flex items-center justify-center space-x-3">
-              <img src={Google} className='h-5 w-5' alt="Google logo"/>
+              <img src={Google} className='h-5 w-5' alt="Google logo" />
               <span>Login With Google</span>
             </button>
             <button className="bg-white text-gray-700 border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100 w-full md:w-64 flex items-center justify-center space-x-3">
-              <img src={FaceBook} className='h-5 w-5' alt="Facebook logo"/>
+              <img src={FaceBook} className='h-5 w-5' alt="Facebook logo" />
               <span>Login With Facebook</span>
             </button>
           </div>
         </div>
       </Modal>
 
-      <RegisterPage 
-        isOpen={isRegisterModalOpen} 
+      <RegisterPage
+        isOpen={isRegisterModalOpen}
         onClose={() => setIsRegisterModalOpen(false)}
         onSwitchToLogin={() => {
           setIsRegisterModalOpen(false);
