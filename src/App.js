@@ -13,17 +13,21 @@ import AddProduct from './Screens/AddProduct';
 import EditProduct from './Screens/EditProduct';
 import DeleteProduct from './Screens/DeleteProduct';
 import LandingPage from './Screens/LandingPage';
+import AdminLogin from './Screens/AdminLogin';
 import './tailwind.css';
+import axios from 'axios';
 
-function App() {
-  const [message, setMessage] = useState('');
+  const apiBaseUrl = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com';
 
-  useEffect(() => {
-    fetch('http://localhost:5000/api')
-      .then(response => response.json())
-      .then(data => setMessage(data.message));
-  }, []);
-
+  function App() {
+    const [message, setMessage] = useState('');
+  
+    useEffect(() => {
+      axios.get(`${apiBaseUrl}/endpoint`)
+        .then(response => setMessage(response.data.message))
+        .catch(error => console.error('Error fetching data:', error));
+    }, []);
+  
   return (
     <>
       <Routes>
@@ -40,6 +44,7 @@ function App() {
         <Route exact path="/addproduct" element={<AddProduct />} />
         <Route exact path="/editproduct" element={<EditProduct />} />
         <Route exact path="/deleteproduct" element={<DeleteProduct />} />
+        <Route exact path="/adminlogin" element={<AdminLogin />} />
       </Routes>
       <p>{message}</p>
     </>
