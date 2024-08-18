@@ -1,10 +1,22 @@
 import React from 'react';
+import axios from 'axios';
+
 
 function BillingAddressForm({ billingInfo, handleInputChange }) {
   if (!billingInfo) {
     return <div>Loading...</div>;
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/address/addresses', billingInfo);
+      alert('Address saved successfully!');
+    } catch (err) {
+      alert('Error saving address');
+    }
+  };
+  
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <h2 className="text-2xl font-bold mb-4 col-span-1 md:col-span-2">Billing Address</h2>

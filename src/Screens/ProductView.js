@@ -15,7 +15,7 @@ const ProductView = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`API_ENDPOINT/products/${productId}`); // Replace with your API endpoint
+        const response = await axios.get(`https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/${productId}`); // Replace with your API endpoint
         setProduct(response.data);
         setLoading(false);
       } catch (err) {

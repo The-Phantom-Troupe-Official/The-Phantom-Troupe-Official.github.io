@@ -4,11 +4,47 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faMapMarkerAlt, faShoppingCart, faSignOutAlt, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import SignedInHeader from '../components/SignedInHeader';
 import Footer from '../components/Footer';
+import axios from 'axios'; // Import axios for HTTP requests
 
 const AccountDetails = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    username: '',
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.newPassword !== formData.confirmPassword) {
+      // Handle password mismatch
+      alert('New passwords do not match.');
+      return;
+    }
+
+    try {
+      const response = await axios.put('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/account/profile', formData); // Adjust endpoint as needed
+      // Handle success (e.g., show a success message, redirect)
+      alert('Account details updated successfully.');
+    } catch (error) {
+      // Handle error (e.g., show an error message)
+      console.error('Error updating account details:', error);
+      alert('Error updating account details.');
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -27,7 +63,9 @@ const AccountDetails = () => {
               <FontAwesomeIcon icon={faShoppingCart} className="mr-5" /> Orders
             </Link>
             <Link to="/pccustomize" className="flex items-center text-gray-600 mb-2">
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
               PC Customization
             </Link>
           </nav>
@@ -40,42 +78,78 @@ const AccountDetails = () => {
 
         <main className="w-full md:w-3/4">
           <h2 className="text-xl font-bold mb-4">Personal Information</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   First Name <span className="text-red-500">*</span>
                 </label>
-                <input type="text" className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500" />
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Last Name <span className="text-red-500">*</span>
                 </label>
-                <input type="text" className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500" />
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Email Address <span className="text-red-500">*</span>
                 </label>
-                <input type="email" className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Phone Number <span className="text-red-500">*</span>
                 </label>
                 <div className="flex">
-                  <select className="p-2 border border-gray-300 rounded-l focus:ring-blue-500 focus:border-blue-500">
+                  <select
+                    name="phoneCode"
+                    value={formData.phoneCode || '+233'}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-l focus:ring-blue-500 focus:border-blue-500"
+                  >
                     <option>+233</option>
+                    {/* Add more options as needed */}
                   </select>
-                  <input type="tel" className="w-full p-2 border border-gray-300 rounded-r focus:ring-blue-500 focus:border-blue-500" />
+                  <input
+                    type="tel"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded-r focus:ring-blue-500 focus:border-blue-500"
+                  />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Username <span className="text-red-500">*</span>
                 </label>
-                <input type="text" className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500" />
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Photo</label>
@@ -94,7 +168,13 @@ const AccountDetails = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
                 <div className="relative">
-                  <input type={showPassword ? "text" : "password"} className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="currentPassword"
+                    value={formData.currentPassword}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                  />
                   <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-3 flex items-center">
                     <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className="text-gray-400" />
                   </button>
@@ -103,7 +183,13 @@ const AccountDetails = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
                 <div className="relative">
-                  <input type={showNewPassword ? "text" : "password"} className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500" />
+                  <input
+                    type={showNewPassword ? "text" : "password"}
+                    name="newPassword"
+                    value={formData.newPassword}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                  />
                   <button type="button" onClick={() => setShowNewPassword(!showNewPassword)} className="absolute inset-y-0 right-0 pr-3 flex items-center">
                     <FontAwesomeIcon icon={showNewPassword ? faEyeSlash : faEye} className="text-gray-400" />
                   </button>
@@ -112,7 +198,13 @@ const AccountDetails = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
                 <div className="relative">
-                  <input type={showConfirmPassword ? "text" : "password"} className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500" />
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                  />
                   <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute inset-y-0 right-0 pr-3 flex items-center">
                     <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} className="text-gray-400" />
                   </button>

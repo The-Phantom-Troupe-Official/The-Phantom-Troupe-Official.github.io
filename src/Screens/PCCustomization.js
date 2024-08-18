@@ -27,7 +27,7 @@ const PCCustomizationPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/customize-pc', {
+      const response = await fetch('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/customize/customize-pc', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ const PCCustomizationPage = () => {
                 value={formData.storage}
                 onChange={handleChange}
                 options={[
-                  "500GB HDD", "1TB HDD", "2TB HDD",
+                  "500GB HDD", "1TB HDD", "2TB HDD", "4TB HDD",
                   "256GB SSD", "512GB SSD", "1TB SSD", "2TB SSD"
                 ]}
               />

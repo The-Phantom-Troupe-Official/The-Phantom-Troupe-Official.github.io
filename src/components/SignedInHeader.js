@@ -23,6 +23,7 @@ function SignedInHeader() {
           <nav className="hidden md:block">
             <ul className="flex space-x-6">
               <li><Link to="/home" className="text-gray-600 font-bold hover:text-blue-600 transition-colors duration-300">Home</Link></li>
+              <li><Link to="/pccustomize" className="text-gray-600 font-bold hover:text-blue-600 transition-colors duration-300">Customize PC</Link></li>
               <li><Link to="#footer" className="text-gray-600 font-bold hover:text-blue-600 transition-colors duration-300">Contact Us</Link></li>
             </ul>
           </nav>

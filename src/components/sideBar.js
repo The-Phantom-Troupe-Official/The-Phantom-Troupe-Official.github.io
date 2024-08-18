@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-function Sidebar() {
-  const categories = ['System Units', 'Desktop PCs', 'Workstations', 'Gaming PCs', 'Mini PCs', 'Monitors', 'Computer Accessories', 'All-in-One Computers', 'Laptops', 'Macs', 'Customized PCs'];
-  
-  const [priceRange, setPriceRange] = useState(0);
+function Sidebar({ onCategorySelect }) {
+  const categories = [
+    'System Units', 'Desktop PCs', 'Workstations', 'Gaming PCs', 'Mini PCs',
+    'Monitors', 'Computer Accessories', 'All-in-One Computers', 'Laptops',
+    'Macs', 'Customized PCs'
+  ];
+
+  const [priceRange, setPriceRange] = React.useState(0);
 
   const handlePriceRangeChange = (event) => {
     setPriceRange(event.target.value);
+  };
+
+  const handleCategoryClick = (category) => {
+    onCategorySelect(category); // Trigger the callback function with the selected category
   };
 
   return (
@@ -16,7 +23,12 @@ function Sidebar() {
       <ul className="space-y-2">
         {categories.map((category, index) => (
           <li key={index}>
-            <Link to="/pccustomize" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">{category}</Link>
+            <button
+              onClick={() => handleCategoryClick(category)}
+              className="text-gray-600 hover:text-blue-600 transition-colors duration-300 w-full text-left"
+            >
+              {category}
+            </button>
           </li>
         ))}
       </ul>

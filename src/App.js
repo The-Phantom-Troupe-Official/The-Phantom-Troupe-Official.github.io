@@ -14,6 +14,8 @@ import EditProduct from './Screens/EditProduct';
 import DeleteProduct from './Screens/DeleteProduct';
 import LandingPage from './Screens/LandingPage';
 import AdminLogin from './Screens/AdminLogin';
+import AdminRegisterPage from './Screens/AdminRegister';
+import Cart from './Screens/Cart';
 import './tailwind.css';
 import axios from 'axios';
 
@@ -46,6 +48,8 @@ import axios from 'axios';
         <Route exact path="/editproduct" element={<EditProduct />} />
         <Route exact path="/deleteproduct" element={<DeleteProduct />} />
         <Route exact path="/adminlogin" element={<AdminLogin />} />
+        <Route exact path="/adminregister" element={<AdminRegisterPage />} />
+        <Route exact path="/cart" element={<Cart />} />
       </Routes>
       <p>{message}</p>
     </>

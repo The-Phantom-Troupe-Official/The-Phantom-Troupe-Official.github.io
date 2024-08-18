@@ -16,13 +16,22 @@ const Login = (props) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const handleGoogleLogin = () => {
+    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/google'; // Redirect to the backend login URL
+  };
+
+  const handleFacebookLogin = () => {
+    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/facebook'; // Redirect to the backend login URL
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     const userData = { email, password };
+    
 
     try {
-      const response = await fetch('http://your-backend-endpoint.com/api/login', {
+      const response = await fetch('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -129,11 +138,15 @@ const Login = (props) => {
             <span>Or login with</span>
           </div>
           <div className="flex flex-col items-center space-y-3 mt-4">
-            <button className="bg-white text-gray-700 border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100 w-full md:w-64 flex items-center justify-center space-x-3">
+            <button 
+            onClick={handleGoogleLogin}
+            className="bg-white text-gray-700 border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100 w-full md:w-64 flex items-center justify-center space-x-3">
               <img src={Google} className='h-5 w-5' alt="Google logo" />
               <span>Login With Google</span>
             </button>
-            <button className="bg-white text-gray-700 border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100 w-full md:w-64 flex items-center justify-center space-x-3">
+            <button 
+            onClick={handleFacebookLogin}
+            className="bg-white text-gray-700 border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100 w-full md:w-64 flex items-center justify-center space-x-3">
               <img src={FaceBook} className='h-5 w-5' alt="Facebook logo" />
               <span>Login With Facebook</span>
             </button>

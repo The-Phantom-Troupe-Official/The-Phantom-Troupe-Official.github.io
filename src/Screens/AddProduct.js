@@ -5,8 +5,48 @@ import {
   faUser, faShoppingCart, faTrash, faPlus, faPen
 } from '@fortawesome/free-solid-svg-icons';
 import SignedInHeader from '../components/SignedInHeader';
+import axios from 'axios'; // Import axios for HTTP requests
 
 const AddProduct = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    category: '',
+    price: '',
+    description: '',
+    image1: null,
+    image2: null,
+    image3: null
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, files } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: type === 'file' ? files[0] : value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    const form = new FormData();
+    for (const key in formData) {
+      form.append(key, formData[key]);
+    }
+
+    try {
+      await axios.post('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/admin/products', form, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      // Handle success (e.g., show a success message, redirect)
+    } catch (error) {
+      // Handle error (e.g., show an error message)
+      console.error('Error adding product:', error);
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <SignedInHeader />
@@ -33,15 +73,26 @@ const AddProduct = () => {
 
         <main className="w-full lg:w-3/4">
           <h2 className="text-2xl font-bold mb-6">Add Product</h2>
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Product Name <span className="text-red-500">*</span></label>
-                <input type="text" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Category <span className="text-red-500">*</span></label>
-                <select className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
                   <option value="" disabled>Category</option>
                   <option value="monitor">Monitor</option>
                   <option value="systemUnit">System Unit</option>
@@ -52,23 +103,53 @@ const AddProduct = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Price <span className="text-red-500">*</span></label>
-                <input type="text" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="text"
+                  name="price"
+                  value={formData.price}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Description <span className="text-red-500">*</span></label>
-                <textarea className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" rows='4'></textarea>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  rows='4'
+                ></textarea>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Product Image 1</label>
-                <input type="file" accept="image/*" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="file"
+                  name="image1"
+                  accept="image/*"
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Product Image 2</label>
-                <input type="file" accept="image/*" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="file"
+                  name="image2"
+                  accept="image/*"
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Product Image 3</label>
-                <input type="file" accept="image/*" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="file"
+                  name="image3"
+                  accept="image/*"
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
             </div>
 

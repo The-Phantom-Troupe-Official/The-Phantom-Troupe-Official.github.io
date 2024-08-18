@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/SignedInHeader';
 import Hero from '../components/Hero';
-import ProductGrid from '../components/ProductGrid';
+import ProductPage from '../components/ProductPage';
 import Sidebar from '../components/sideBar'; 
 import Footer from '../components/Footer';
 
@@ -13,8 +13,7 @@ function Home() {
       <main className="flex-grow container mx-auto px-4 md:px-6 lg:px-8">
         <Hero />
         <div className="flex flex-col md:flex-row gap-8">
-          <Sidebar className="md:w-1/4 lg:w-1/5" /> 
-          <ProductGrid className="md:w-3/4 lg:w-4/5" /> 
+          <ProductPage className="md:w-3/4 lg:w-4/5" /> 
         </div>
         <div className="px-4 py-8 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">

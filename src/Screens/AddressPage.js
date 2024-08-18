@@ -4,9 +4,39 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faMapMarkerAlt, faShoppingCart, faSignOutAlt, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import SignedInHeader from '../components/SignedInHeader';
 import Footer from '../components/Footer';
+import axios from 'axios'; // Import axios for HTTP requests
 
 const AddressPage = () => {
   const [sameAsBilling, setSameAsBilling] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    country: '',
+    city: '',
+    streetAddress1: '',
+    streetAddress2: '',
+    state: '',
+    zip: '',
+    email: '',
+    phoneNumber: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post('/api/user/address', formData); // Adjust endpoint as needed
+      // Handle success (e.g., show a success message, redirect)
+    } catch (error) {
+      // Handle error (e.g., show an error message)
+      console.error('Error updating address:', error);
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -49,21 +79,39 @@ const AddressPage = () => {
           </div>
           <p className="text-gray-600 mb-6">The following addresses will be used on the checkout page by default.</p>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">First Name <span className="text-red-500">*</span></label>
-                <input type="text" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Last Name <span className="text-red-500">*</span></label>
-                <input type="text" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Country / Region <span className="text-red-500">*</span></label>
                 <div className="relative">
-                  <select className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none">
-                    <option>Select a country / region</option>
+                  <select
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
+                  >
+                    <option value="">Select a country / region</option>
+                    {/* Add more options as needed */}
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <FontAwesomeIcon icon={faChevronDown} className="h-4 w-4" />
@@ -72,18 +120,44 @@ const AddressPage = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Town / City <span className="text-red-500">*</span></label>
-                <input type="text" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div className="col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Street Address <span className="text-red-500">*</span></label>
-                <input type="text" placeholder="House number and street name" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2" />
-                <input type="text" placeholder="Apartment, suite, unit, etc. (optional)" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="text"
+                  name="streetAddress1"
+                  value={formData.streetAddress1}
+                  onChange={handleChange}
+                  placeholder="House number and street name"
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                />
+                <input
+                  type="text"
+                  name="streetAddress2"
+                  value={formData.streetAddress2}
+                  onChange={handleChange}
+                  placeholder="Apartment, suite, unit, etc. (optional)"
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">State <span className="text-red-500">*</span></label>
                 <div className="relative">
-                  <select className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none">
-                    <option>Select a state</option>
+                  <select
+                    name="state"
+                    value={formData.state}
+                    onChange={handleChange}
+                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
+                  >
+                    <option value="">Select a state</option>
+                    {/* Add more options as needed */}
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <FontAwesomeIcon icon={faChevronDown} className="h-4 w-4" />
@@ -92,19 +166,43 @@ const AddressPage = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Zip <span className="text-red-500">*</span></label>
-                <input type="text" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="text"
+                  name="zip"
+                  value={formData.zip}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email address <span className="text-red-500">*</span></label>
-                <input type="email" className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number <span className="text-red-500">*</span></label>
                 <div className="flex">
-                  <select className="p-3 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <select
+                    name="phoneCode"
+                    value={formData.phoneCode || '+233'}
+                    onChange={handleChange}
+                    className="p-3 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
                     <option>+233</option>
+                    {/* Add more options as needed */}
                   </select>
-                  <input type="tel" className="w-full p-3 border border-gray-300 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                  <input
+                    type="tel"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    className="w-full p-3 border border-gray-300 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
                 </div>
               </div>
             </div>
@@ -119,7 +217,12 @@ const AddressPage = () => {
             </div>
             <p className="text-gray-600 mb-4">You have not set up this type of address yet.</p>
             <label className="inline-flex items-center">
-              <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600 focus:ring-2 focus:ring-blue-500 transition" checked={sameAsBilling} onChange={() => setSameAsBilling(!sameAsBilling)} />
+              <input
+                type="checkbox"
+                className="form-checkbox h-5 w-5 text-blue-600 focus:ring-2 focus:ring-blue-500 transition"
+                checked={sameAsBilling}
+                onChange={() => setSameAsBilling(!sameAsBilling)}
+              />
               <span className="ml-2 text-gray-700">Same as billing address</span>
             </label>
           </div>

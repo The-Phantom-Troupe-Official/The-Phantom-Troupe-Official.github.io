@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function ProductCard({ product }) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -13,6 +14,18 @@ function ProductCard({ product }) {
   const viewProduct = () => {
     navigate(`/productview/${product.id}`);
   };
+
+  const addToCart = async (e) => {
+    e.stopPropagation();
+    try {
+      await axios.post('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/cart/', { productId: product.id, quantity: 1 });
+      alert('Product added to cart!');
+    } catch (err) {
+      alert('Error adding product to cart');
+    }
+  };
+
+  if (!product) return <p>Product not found</p>;
 
   return (
     <div className="bg-white border rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 max-w-sm mx-auto">
@@ -30,7 +43,7 @@ function ProductCard({ product }) {
           <div className="flex justify-between items-center">
             <button 
               className="text-blue-600 hover:text-blue-800 transition-colors duration-300"
-              onClick={(e) => { e.stopPropagation(); /* Add to cart logic */ }}
+              onClick={addToCart}
               aria-label="Add to cart"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,7 +13,7 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       // Make an API call to authenticate the user
-      const response = await axios.post('/api/login', {
+      const response = await axios.post('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/admin/login', {
         email,
         password,
       });
@@ -37,8 +37,9 @@ const AdminLogin = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md">
         <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div className="mb-4 flex justify-center">
-            <h2 className="text-2xl font-bold text-center">Admin Login</h2>
+        <div className="mb-4 flex justify-between">
+            <h2 className="text-2xl font-bold">Loginr</h2>
+            <NavLink to='/adminregister' className="text-blue-500 hover:text-blue-700">Register</NavLink>
           </div>
           <div className="mb-4">
             <input

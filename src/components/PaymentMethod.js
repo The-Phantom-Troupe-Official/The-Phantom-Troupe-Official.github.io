@@ -5,15 +5,11 @@ function PaymentMethod({ paymentMethod, setPaymentMethod }) {
       <div>
         <h3 className="font-bold mb-2">Payment Method</h3>
         <div className="space-y-2">
-          <label className="flex items-center">
-            <input type="radio" name="paymentMethod" value="paypal" checked={paymentMethod === 'paypal'} onChange={() => setPaymentMethod('paypal')}
-                   className="form-radio h-4 w-4 text-blue-600" />
-            <span className="ml-2">PayPal / Credit Card</span>
-          </label>
+          
           <label className="flex items-center">
             <input type="radio" name="paymentMethod" value="bank" checked={paymentMethod === 'bank'} onChange={() => setPaymentMethod('bank')}
                    className="form-radio h-4 w-4 text-blue-600" />
-            <span className="ml-2">Direct bank transfer</span>
+            <span className="ml-2">Pay Now</span>
           </label>
           <label className="flex items-center">
             <input type="radio" name="paymentMethod" value="cash" checked={paymentMethod === 'cash'} onChange={() => setPaymentMethod('cash')}

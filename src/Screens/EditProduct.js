@@ -1,12 +1,67 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUser, faShoppingCart, faTrash, faAdd, faPen
 } from '@fortawesome/free-solid-svg-icons';
 import SignedInHeader from '../components/SignedInHeader';
+import axios from 'axios'; // Import axios for HTTP requests
 
 const EditProduct = () => {
+  const { id } = useParams(); // Get the product ID from the route parameters
+  const [product, setProduct] = useState({
+    name: '',
+    category: '',
+    price: '',
+    description: '',
+    image: null
+  });
+
+  useEffect(() => {
+    // Fetch the product details when the component mounts
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/admin/products/${id}`);
+        setProduct(response.data);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  const handleChange = (e) => {
+    const { name, value, type, files } = e.target;
+    if (type === 'file') {
+      setProduct(prev => ({ ...prev, [name]: files[0] }));
+    } else {
+      setProduct(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('category', product.category);
+    formData.append('price', product.price);
+    formData.append('description', product.description);
+    if (product.image) formData.append('image', product.image);
+
+    try {
+      await axios.put(`/api/products/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      // Handle success (e.g., show a success message, redirect)
+    } catch (error) {
+      // Handle error (e.g., show an error message)
+      console.error('Error updating product:', error);
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -34,15 +89,26 @@ const EditProduct = () => {
 
         <main className="w-full md:w-3/4">
           <h2 className="text-2xl font-bold mb-6">Edit Product</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Product Name <span className="text-red-500">*</span></label>
-                <input type="text" className="w-full p-3 border border-gray-300 rounded" />
+                <input
+                  type="text"
+                  name="name"
+                  value={product.name}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Category<span className="text-red-500">*</span></label>
-                <select className="w-full p-3 border border-gray-300 rounded">
+                <select
+                  name="category"
+                  value={product.category}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded"
+                >
                   <option value="" disabled>Select Category</option>
                   <option value="monitor">Monitor</option>
                   <option value="systemUnit">System Unit</option>
@@ -53,18 +119,34 @@ const EditProduct = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Price <span className="text-red-500">*</span></label>
-                <input type="number" className="w-full p-3 border border-gray-300 rounded" placeholder='GHC' />
+                <input
+                  type="number"
+                  name="price"
+                  value={product.price}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded"
+                  placeholder='GHC'
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Description<span className="text-red-500">*</span></label>
-                <textarea 
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 transition" 
-                  rows="4">
-                </textarea>
+                <textarea
+                  name="description"
+                  value={product.description}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 transition"
+                  rows="4"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Product Image</label>
-                <input type="file" accept="image/*" className="w-full p-3 border border-gray-300 rounded" />
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded"
+                />
               </div>
             </div>
 
