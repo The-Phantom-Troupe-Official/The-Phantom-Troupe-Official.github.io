@@ -1,7 +1,7 @@
 {
   "name": "yak-computers-frontend",
   "version": "0.1.0",
-  "homepage": "yakcomputers.tech",
+  "homepage": "https://the-phantom-troupe-official.github.io",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
