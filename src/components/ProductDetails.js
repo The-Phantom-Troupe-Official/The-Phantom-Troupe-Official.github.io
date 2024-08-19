@@ -10,7 +10,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`https://api.example.com/product/${id}`)
+    axios.get(`https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/product/${id}`)
       .then(response => {
         setProduct(response.data);
       })

@@ -25,10 +25,14 @@ function ProductPage() {
         setError(null);
         try {
           const response = await axios.get(`https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/products?category=${encodeURIComponent(selectedCategory)}&page=${currentPage}&limit=${productsPerPage}`);
-          setProducts(response.data.products); // Assuming the API returns an array of products in `products`
-          setTotalPages(response.data.totalPages); // Assuming the API returns the total number of pages
+          
+          // Ensure products and totalPages have valid values
+          setProducts(response.data.products || []); // Default to an empty array if products is undefined
+          setTotalPages(response.data.totalPages || 1); // Default to 1 page if totalPages is undefined
         } catch (err) {
           setError('Error fetching products');
+          setProducts([]); // Clear products in case of error
+          setTotalPages(1); // Reset to 1 page in case of error
         } finally {
           setLoading(false);
         }
