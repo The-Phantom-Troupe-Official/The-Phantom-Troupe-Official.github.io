@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductCard from './ProductCard';
 
-function ProductGrid({ products, loading, error }) {
+function ProductGrid({ products, loading, error, currentPage, totalPages, onPageChange }) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -16,6 +16,27 @@ function ProductGrid({ products, loading, error }) {
             <ProductCard key={product.id} product={product} />
           ))
         )}
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-6">
+        <button
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-200 rounded-l hover:bg-gray-300"
+        >
+          Previous
+        </button>
+        <span className="px-4 py-2 bg-gray-100">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-200 rounded-r hover:bg-gray-300"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
