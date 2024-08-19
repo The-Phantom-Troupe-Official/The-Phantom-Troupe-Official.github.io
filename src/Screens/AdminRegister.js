@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Make sure to install axios: npm install axios
-import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const AdminRegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -9,6 +9,8 @@ const AdminRegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,13 +22,14 @@ const AdminRegisterPage = () => {
     }
 
     try {
-      const response = await axios.post('/api/register', {
+      const response = await axios.post('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/admin/register', {
         email,
         adminName,
         password
       });
       console.log('Registration successful', response.data);
-      // Handle successful registration (e.g., redirect to login page)
+      // Redirect to the homepage after successful registration
+      navigate('/login/admindashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
     }
@@ -100,7 +103,6 @@ const AdminRegisterPage = () => {
               Register
             </button>
           </div>
-          
         </form>
       </div>
     </div>

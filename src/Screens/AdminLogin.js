@@ -21,7 +21,7 @@ const AdminLogin = () => {
       // Check if the response is successful
       if (response.status === 200 && response.data.success) {
         // Redirect to the admin dashboard
-        navigate('/admin/dashboard');
+        navigate('/login/admindashboard');
       } else {
         // Show an error message
         setError('Unable to Login');
@@ -38,7 +38,7 @@ const AdminLogin = () => {
       <div className="w-full max-w-md">
         <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4 flex justify-between">
-            <h2 className="text-2xl font-bold">Loginr</h2>
+            <h2 className="text-2xl font-bold">Login</h2>
             <NavLink to='/adminregister' className="text-blue-500 hover:text-blue-700">Register</NavLink>
           </div>
           <div className="mb-4">
@@ -78,7 +78,7 @@ const AdminLogin = () => {
             </button>
           </div>
           <div className="text-center mb-4">
-            <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+            <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/register">
               Forgot Password?
             </a>
           </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Modal from '../components/Modal';
 import Google from '../Images/googleLogo.png';
 import FaceBook from '../Images/facebook 1.png';
@@ -12,6 +13,8 @@ const RegisterPage = ({ isOpen, onClose, onSwitchToLogin }) => {
   const [passwordVerification, setPasswordVerification] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -40,12 +43,11 @@ const RegisterPage = ({ isOpen, onClose, onSwitchToLogin }) => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log(result); // Use the result variable
-        // Handle success (e.g., show a success message, redirect, etc.)
+        console.log(result);
         alert('Registration successful');
         onClose(); // Close the modal after successful registration
+        navigate('/home'); // Redirect to the homepage
       } else {
-        // Handle error (e.g., show an error message)
         const error = await response.json();
         alert(`Registration failed: ${error.message}`);
       }
