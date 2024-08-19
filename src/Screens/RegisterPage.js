@@ -14,11 +14,21 @@ const RegisterPage = ({ isOpen, onClose, onSwitchToLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const handleGoogleRegister = () => {
+    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/google';
+  };
+  
+  const handleFacebookRegister = () => {
+    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/facebook';
+  };
+  
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
+
+    
     // Basic validation
     if (password !== passwordVerification) {
       alert("Passwords do not match");
@@ -145,13 +155,17 @@ const RegisterPage = ({ isOpen, onClose, onSwitchToLogin }) => {
         </div>
         <div className="flex flex-col items-center space-y-3 mt-4">
           <div>
-            <button className="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center gap-3">
+            <button 
+             onClick={handleGoogleRegister}
+            className="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center gap-3">
               <img src={Google} className="h-5 w-5" alt="Google logo" />
               <span>Register with Google</span>
             </button>
           </div>
           <div>
-            <button className="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center gap-3">
+            <button
+            onClick={handleFacebookRegister} 
+            className="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center gap-3">
               <img src={FaceBook} className="h-5 w-5" alt="Facebook logo" />
               <span>Register with Facebook</span>
             </button>
