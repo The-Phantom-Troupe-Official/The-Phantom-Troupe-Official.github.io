@@ -54,7 +54,7 @@ const AddressPage = () => {
             <Link to="/addresspage" className="flex items-center text-blue-600 hover:text-blue-800 transition">
               <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-5" /> Address
             </Link>
-            <Link to="/orders" className="flex items-center text-gray-600 hover:text-blue-600 transition">
+            <Link to="/cart" className="flex items-center text-gray-600 hover:text-blue-600 transition">
               <FontAwesomeIcon icon={faShoppingCart} className="mr-5" /> Orders
             </Link>
             <Link to="/pccustomize" className="flex items-center text-gray-600 hover:text-blue-600 transition">

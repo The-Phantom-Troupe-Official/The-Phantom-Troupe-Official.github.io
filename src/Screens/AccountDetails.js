@@ -59,7 +59,7 @@ const AccountDetails = () => {
             <Link to="/addresspage" className="flex items-center text-gray-600 mb-2">
               <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-5" /> Address
             </Link>
-            <Link to="/orders" className="flex items-center text-gray-600 mb-2">
+            <Link to="/cart" className="flex items-center text-gray-600 mb-2">
               <FontAwesomeIcon icon={faShoppingCart} className="mr-5" /> Orders
             </Link>
             <Link to="/pccustomize" className="flex items-center text-gray-600 mb-2">

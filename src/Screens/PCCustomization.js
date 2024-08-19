@@ -54,7 +54,7 @@ const PCCustomizationPage = () => {
           <nav className="space-y-2">
             <NavLink to="/accountdetails" icon={faUser} text="Account Details" />
             <NavLink to="/addresspage" icon={faMapMarkerAlt} text="Address" />
-            <NavLink to="/orders" icon={faShoppingCart} text="Orders" />
+            <NavLink to="/cart" icon={faShoppingCart} text="Orders" />
             <NavLink to="/pccustomize" icon={faLaptop} text="PC Customization" active />
           </nav>
           <div className="mt-8">
