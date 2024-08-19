@@ -26,7 +26,7 @@ import axios from 'axios';
     const [message, setMessage] = useState('');
   
     useEffect(() => {
-      axios.get(`${apiBaseUrl}/endpoint`)
+      axios.get(`${apiBaseUrl}/`)
         .then(response => setMessage(response.data.message))
         .catch(error => console.error('Error fetching data:', error));
     }, []);
