@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Image1 from '../Images/PC.png';
-import Image2 from '../Images/PC2.png';
-import Image3 from '../Images/PC3.png';
+import Image1 from '../Images/PC.jpg';
+import Image2 from '../Images/PC2.jpeg';
+import Image3 from '../Images/PC3.jpeg';
 import Login from '../Screens/Login';
 
 const slides = [

@@ -1,5 +1,5 @@
 import React from 'react';
-import Image1 from '../Images/PC.png';
+import Image1 from '../Images/PC.jpg';
 
 const RelatedProducts = () => {
   const relatedProducts = [

@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
 import logoHeader from '../Images/logoheader.png';
 import Login from '../Screens/Login';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate(); // Use useNavigate
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleSearch = (event) => {
+    if (event.key === 'Enter' && searchQuery) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery)}`); // Use navigate instead of history.push
+    }
+  };
+
   const menuItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Cart', href: '#footer' },
-    { label: 'Contact Us', href: '#footer' },
+    { label: 'Home', to: '/' },
+    { label: 'Contact Us', to: '#footer' },
   ];
 
   return (
@@ -27,16 +34,23 @@ function Header() {
           <ul className="flex space-x-6">
             {menuItems.map((item, index) => (
               <li key={index}>
-                <a href={item.href} className="text-gray-600 hover:text-blue-600 font-semibold transition duration-300">
+                <NavLink to={item.to} className="text-gray-600 hover:text-blue-600 font-semibold transition duration-300">
                   {item.label}
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>
         </nav>
         <div className="flex items-center space-x-4">
           <div className="hidden md:block">
-            <input type="text" placeholder="Search" className="border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300" />
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearch}
+              className="border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300"
+            />
           </div>
           <button
             className="md:hidden text-gray-600 hover:text-blue-600 transition duration-300 focus:outline-none"
@@ -62,7 +76,14 @@ function Header() {
             ))}
           </ul>
           <div className="mt-4">
-            <input type="text" placeholder="Search" className="border rounded-full px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300" />
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearch}
+              className="border rounded-full px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300"
+            />
           </div>
         </div>
       )}
