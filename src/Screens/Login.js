@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -121,9 +121,9 @@ const Login = (props) => {
               </button>
             </div>
             <div className="flex items-center justify-between mb-4">
-              <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+              <NavLink className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" to='/forgotpassword'>
                 Forgot Password?
-              </a>
+              </NavLink>
             </div>
             <div className="mt-4">
               <button

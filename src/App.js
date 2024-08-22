@@ -15,10 +15,11 @@ import LandingPage from './Screens/LandingPage';
 import AdminLogin from './Screens/AdminLogin';
 import AdminRegisterPage from './Screens/AdminRegister';
 import AdminDashboard from './Screens/AdminDashboard';
+import ForgotPassword from './Screens/ForgotPassword';
 import Cart from './Screens/Cart';
 import './tailwind.css';
 import axios from 'axios';
-
+import ResetPassword from './Screens/ResetPassword';
 
   const apiBaseUrl = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com';
 
@@ -52,6 +53,8 @@ import axios from 'axios';
         <Route exact path="/cart" element={<Cart />} />
         <Route exact path="/register/admindasboard" element={<AdminDashboard />} />
         <Route exact path="/login/admindashboard" element={<Cart />} />
+        <Route exact path="/forgotpassword" element={<ForgotPassword />} />
+        <Route exact path="/resetpassword/:token" element={<ResetPassword />} />  
 
       </Routes>
       <p>{message}</p>
