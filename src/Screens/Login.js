@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +7,7 @@ import Google from '../Images/googleLogo.png';
 import FaceBook from '../Images/facebook 1.png';
 import RegisterPage from './RegisterPage';
 
-const Login = (props) => {
+const Login = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -16,19 +16,29 @@ const Login = (props) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Check for the token in the URL after Google/Facebook login
+    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get('token');
+
+    if (token) {
+      localStorage.setItem('authToken', token); // Store token in localStorage
+      navigate('/homepage'); // Redirect to homepage
+    }
+  }, [navigate]);
+
   const handleGoogleLogin = () => {
-    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/google'; // Redirect to the backend login URL
+    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/google';
   };
 
   const handleFacebookLogin = () => {
-    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/facebook'; // Redirect to the backend login URL
+    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/facebook';
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     const userData = { email, password };
-    
 
     try {
       const response = await fetch('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/login', {
@@ -42,9 +52,9 @@ const Login = (props) => {
       if (response.ok) {
         const result = await response.json();
 
-        // Assuming a success flag or similar logic
         if (result.success) {
-          navigate('/homepage');  // Redirect to the homepage
+          localStorage.setItem('authToken', result.token); // Store token in localStorage
+          navigate('/homepage');
         } else {
           setError(result.message || 'Unable to Login');
         }
