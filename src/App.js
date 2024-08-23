@@ -35,26 +35,26 @@ import ResetPassword from './Screens/ResetPassword';
   return (
     <>
       <Routes>
-        <Route exact path="https://www.yakcomputers.tech/" element={<LandingPage />} />
-        <Route path="https://www.yakcomputers.tech/home" element={<Home />} />
-        <Route path="https://www.yakcomputers.tech/register" element={<Register />} />
+        <Route exact path="/" element={<LandingPage />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/accountdetails" element={<AccountDetails />} />
-        <Route path="https://www.yakcomputers.tech/checkout" element={<Checkout />} />
-        <Route path="https://www.yakcomputers.tech/addresspage" element={<AddressPage />} />
-        <Route path="https://www.yakcomputers.tech/productview" element={<ProductView />} />
-        <Route path="https://www.yakcomputers.tech/login" element={<Login />} />
-        <Route path="https://www.yakcomputers.tech/pccustomize" element={<PCCustomization />} />
-        <Route exact path="https://www.yakcomputers.tech/admin" element={<AdminRegisterPage />} />
-        <Route exact path="https://www.yakcomputers.tech/addproduct" element={<AddProduct />} />
-        <Route exact path="https://www.yakcomputers.tech/editproduct" element={<EditProduct />} />
-        <Route exact path="https://www.yakcomputers.tech/deleteproduct" element={<DeleteProduct />} />
-        <Route exact path="https://www.yakcomputers.tech/adminlogin" element={<AdminLogin />} />
-        <Route exact path="https://www.yakcomputers.tech/adminRegister" element={<AdminRegisterPage />} />
-        <Route exact path="https://www.yakcomputers.tech/cart" element={<Cart />} />
-        <Route exact path="https://www.yakcomputers.tech/register/admindasboard" element={<AdminDashboard />} />
-        <Route exact path="https://www.yakcomputers.tech/login/admindashboard" element={<Cart />} />
-        <Route exact path="https://www.yakcomputers.tech/forgotpassword" element={<ForgotPassword />} />
-        <Route exact path="https://www.yakcomputers.tech/resetpassword/:token" element={<ResetPassword />} />  
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/addresspage" element={<AddressPage />} />
+        <Route path="/productview" element={<ProductView />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/pccustomize" element={<PCCustomization />} />
+        <Route exact path="/admin" element={<AdminRegisterPage />} />
+        <Route exact path="/addproduct" element={<AddProduct />} />
+        <Route exact path="/editproduct" element={<EditProduct />} />
+        <Route exact path="/deleteproduct" element={<DeleteProduct />} />
+        <Route exact path="/adminlogin" element={<AdminLogin />} />
+        <Route exact path="/adminRegister" element={<AdminRegisterPage />} />
+        <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/register/admindasboard" element={<AdminDashboard />} />
+        <Route exact path="/login/admindashboard" element={<Cart />} />
+        <Route exact path="/forgotpassword" element={<ForgotPassword />} />
+        <Route exact path="/resetpassword/:token" element={<ResetPassword />} />  
 
       </Routes>
       <p>{message}</p>

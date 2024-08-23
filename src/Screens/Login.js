@@ -54,7 +54,7 @@ const Login = () => {
 
         if (result.success) {
           localStorage.setItem('authToken', result.token); // Store token in localStorage
-          navigate('https://www.yakcomputers.tech/homepage');
+          navigate('/homepage');
         } else {
           setError(result.message || 'Unable to Login');
         }
