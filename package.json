@@ -1,7 +1,6 @@
 {
   "name": "yak-computers-frontend",
   "version": "0.1.0",
-  "homepage": "https://www.yakcomputers.tech/",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
@@ -55,5 +54,6 @@
   "devDependencies": {
     "gh-pages": "^6.1.1",
     "tailwindcss": "^3.4.7"
-  }
+  },
+  "homepage": "https://www.yakcomputers.tech/"
 }
