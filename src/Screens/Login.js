@@ -23,7 +23,7 @@ const Login = () => {
 
     if (token) {
       localStorage.setItem('authToken', token); // Store token in localStorage
-      navigate('/homepage'); // Redirect to homepage
+      navigate('/home'); // Redirect to homepage
     }
   }, [navigate]);
 
@@ -73,7 +73,7 @@ const Login = () => {
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         onClick={() => setIsLoginModalOpen(true)}
       >
-        Login
+        Shop Now
       </button>
 
       <Modal

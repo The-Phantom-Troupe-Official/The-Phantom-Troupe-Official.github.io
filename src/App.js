@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, HashRouter } from 'react-router-dom'; // Import HashRouter
+import { Routes, Route, HashRouter } from 'react-router-dom'; 
 import Home from './Screens/Home';
 import Login from './Screens/Login';
 import Register from './Screens/RegisterPage';
@@ -18,22 +18,13 @@ import AdminDashboard from './Screens/AdminDashboard';
 import ForgotPassword from './Screens/ForgotPassword';
 import Cart from './Screens/Cart';
 import './tailwind.css';
-import axios from 'axios';
 import ResetPassword from './Screens/ResetPassword';
 
-const apiBaseUrl = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com';
+
 
 function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    axios.get(`${apiBaseUrl}/`)
-      .then(response => setMessage(response.data.message))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
-
   return (
-    <HashRouter> {/* Wrap your Routes inside HashRouter */}
+    <HashRouter> 
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
@@ -56,7 +47,6 @@ function App() {
         <Route exact path="/forgotpassword" element={<ForgotPassword />} />
         <Route exact path="/resetpassword/:token" element={<ResetPassword />} />
       </Routes>
-      <p>{message}</p>
     </HashRouter>
   );
 }
