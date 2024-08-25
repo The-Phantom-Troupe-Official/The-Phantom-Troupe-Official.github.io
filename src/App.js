@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Home from './Screens/Home';
 import Login from './Screens/Login';
 import Register from './Screens/RegisterPage';
@@ -33,7 +33,8 @@ import ResetPassword from './Screens/ResetPassword';
     }, []);
   
   return (
-    <>
+    <BrowserRouter>
+
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
@@ -58,7 +59,7 @@ import ResetPassword from './Screens/ResetPassword';
 
       </Routes>
       <p>{message}</p>
-    </>
+    </BrowserRouter>
   );
 }
 
