@@ -27,13 +27,13 @@ const Login = () => {
     }
   }, [navigate]);
 
-  const handleGoogleLogin = () => {
-    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/google';
-  };
+  // const handleGoogleLogin = () => {
+  //   window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/google';
+  // };
 
-  const handleFacebookLogin = () => {
-    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/facebook';
-  };
+  // const handleFacebookLogin = () => {
+  //   window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/facebook';
+  // };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -144,10 +144,10 @@ const Login = () => {
               </button>
             </div>
           </form>
-          <div className="mt-6 text-center text-gray-700">
+          {/* <div className="mt-6 text-center text-gray-700">
             <span>Or login with</span>
-          </div>
-          <div className="flex flex-col items-center space-y-3 mt-4">
+          </div> */}
+          {/* <div className="flex flex-col items-center space-y-3 mt-4">
             <button 
             onClick={handleGoogleLogin}
             className="bg-white text-gray-700 border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100 w-full md:w-64 flex items-center justify-center space-x-3">
@@ -160,7 +160,7 @@ const Login = () => {
               <img src={FaceBook} className='h-5 w-5' alt="Facebook logo" />
               <span>Login With Facebook</span>
             </button>
-          </div>
+          </div> */}
         </div>
       </Modal>
 

@@ -13,7 +13,7 @@ const HandleRedirect = () => {
     }
   }, [navigate]);
 
-  return null; // No need to render anything
+  return null; 
 };
 
 export default HandleRedirect;
