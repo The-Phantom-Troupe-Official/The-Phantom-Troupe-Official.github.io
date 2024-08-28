@@ -14,13 +14,13 @@ const RegisterPage = ({ isOpen, onClose, onSwitchToLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleGoogleRegister = () => {
-    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/google';
-  };
+  // const handleGoogleRegister = () => {
+  //   window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/google';
+  // };
   
-  const handleFacebookRegister = () => {
-    window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/facebook';
-  };
+  // const handleFacebookRegister = () => {
+  //   window.location.href = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/auth/facebook';
+  // };
   
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -150,10 +150,10 @@ const RegisterPage = ({ isOpen, onClose, onSwitchToLogin }) => {
             </button>
           </div>
         </form>
-        <div className="mt-6 text-center text-gray-700">
+        {/* <div className="mt-6 text-center text-gray-700">
           <p>Or Register with</p>
-        </div>
-        <div className="flex flex-col items-center space-y-3 mt-4">
+        </div> */}
+        {/* <div className="flex flex-col items-center space-y-3 mt-4">
           <div>
             <button 
              onClick={handleGoogleRegister}
@@ -170,7 +170,7 @@ const RegisterPage = ({ isOpen, onClose, onSwitchToLogin }) => {
               <span>Register with Facebook</span>
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </Modal>
   );
