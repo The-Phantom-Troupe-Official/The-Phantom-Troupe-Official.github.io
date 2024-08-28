@@ -14,11 +14,11 @@ function Sidebar({ onCategorySelect }) {
   };
 
   const handleCategoryClick = (category) => {
-    onCategorySelect(category); // Trigger the callback function with the selected category
+    onCategorySelect(category);
   };
 
   return (
-    <aside className="w-full md:w-64 p-4 bg-white shadow-md rounded-lg">
+    <aside className="hidden md:block w-full md:w-64 p-4 bg-white shadow-md rounded-lg">
       <h2 className="text-xl font-bold mb-4">Categories</h2>
       <ul className="space-y-2">
         {categories.map((category, index) => (
