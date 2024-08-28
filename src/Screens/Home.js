@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Header from '../components/SignedInHeader';
 import Hero from '../components/Hero';
 import ProductPage from '../components/ProductPage';
-import Sidebar from '../components/sideBar'; 
 import Footer from '../components/Footer';
 
 function Home() {
