@@ -8,13 +8,7 @@ import AccountDetails from './Screens/AccountDetails';
 import AddressPage from './Screens/AddressPage';
 import ProductView from './Screens/ProductView';
 import PCCustomization from './Screens/PCCustomization';
-import AddProduct from './Screens/AddProduct';
-import EditProduct from './Screens/EditProduct';
-import DeleteProduct from './Screens/DeleteProduct';
 import LandingPage from './Screens/LandingPage';
-import AdminLogin from './Screens/AdminLogin';
-import AdminRegisterPage from './Screens/AdminRegister';
-import AdminDashboard from './Screens/AdminDashboard';
 import ForgotPassword from './Screens/ForgotPassword';
 import Cart from './Screens/Cart';
 import './tailwind.css';
@@ -47,15 +41,7 @@ function App() {
         <Route path="/productview" element={<ProductView />} />
         <Route path="/login" element={<Login />} />
         <Route path="/pccustomize" element={<PCCustomization />} />
-        <Route exact path="/admin" element={<AdminRegisterPage />} />
-        <Route exact path="/addproduct" element={<AddProduct />} />
-        <Route exact path="/editproduct" element={<EditProduct />} />
-        <Route exact path="/deleteproduct" element={<DeleteProduct />} />
-        <Route exact path="/adminlogin" element={<AdminLogin />} />
-        <Route exact path="/adminRegister" element={<AdminRegisterPage />} />
         <Route exact path="/cart" element={<Cart />} />
-        <Route exact path="/register/admindasboard" element={<AdminDashboard />} />
-        <Route exact path="/login/admindashboard" element={<Cart />} />
         <Route exact path="/forgotpassword" element={<ForgotPassword />} />
         <Route exact path="/resetpassword/:token" element={<ResetPassword />} />  
       </Routes>
