@@ -60,21 +60,22 @@ function Header() {
             <CiSearch className="w-6 h-6" />
           </button>
           <button
-            className="md:hidden text-gray-600 hover:text-blue-600 transition duration-300 focus:outline-none"
+            className="md:hidden text-gray-600 hover:text-blue-600 transition duration-300 focus:outline-none relative group"
             onClick={toggleDropdown}
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
+            <div className="absolute w-full h-0.5 bg-blue-600 left-0 bottom-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
           </button>
-          <Login name="Shop Now" className="text-base md:text-lg px-4 py-2 md:px-6 md:py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300"/>
+          <Login name="Shop Now" className="text-sm md:text-lg px-3 py-1 md:px-6 md:py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300 transform hover:scale-105"/>
         </div>
       </div>
 
       {/* Search Bar */}
-      <div className={`${isSearchOpen ? 'block' : 'hidden'} md:hidden bg-white p-4`}>
-        <div className="relative">
+      <div className={`${isSearchOpen ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'} md:hidden bg-white overflow-hidden transition-all duration-300 ease-in-out`}>
+        <div className="relative p-4">
           <input
             type="text"
             placeholder="Search"
@@ -85,7 +86,7 @@ function Header() {
           />
           <button
             onClick={toggleSearch}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-blue-600"
+            className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-blue-600 transition duration-300"
           >
             <IoMdClose className="w-5 h-5" />
           </button>
@@ -93,52 +94,61 @@ function Header() {
       </div>
 
       {/* Dropdown Menu */}
-      {isDropdownOpen && (
-        <div className="md:hidden bg-white shadow-lg p-4">
-          <nav>
-            <ul className="space-y-4">
-              {menuItems.map((item, index) => (
-                <li key={index}>
-                  {item.onClick ? (
-                    <div>
-                      <button
-                        onClick={item.onClick}
-                        className="flex items-center justify-between w-full text-gray-600 hover:text-blue-600 transition duration-300"
-                      >
-                        {item.label}
-                        <FaChevronDown className={`w-4 h-4 transition-transform duration-300 ${isCategoriesOpen ? 'transform rotate-180' : ''}`} />
-                      </button>
-                      {isCategoriesOpen && (
-                        <ul className="ml-4 mt-2 space-y-2">
-                          {categories.map((category, catIndex) => (
-                            <li key={catIndex}>
-                              <NavLink
-                                to={category.to}
-                                className="block text-gray-600 hover:text-blue-600 transition duration-300"
-                                onClick={toggleDropdown}
-                              >
-                                {category.label}
-                              </NavLink>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  ) : (
-                    <NavLink
-                      to={item.to}
-                      className="block text-gray-600 hover:text-blue-600 transition duration-300"
-                      onClick={toggleDropdown}
+      <div className={`md:hidden bg-white shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${isDropdownOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <nav className="p-4">
+          <ul className="space-y-4">
+            {menuItems.map((item, index) => (
+              <li key={index}>
+                {item.onClick ? (
+                  <div>
+                    <button
+                      onClick={item.onClick}
+                      className="flex items-center justify-between w-full text-gray-600 hover:text-blue-600 active:text-blue-800 transition duration-300 group"
                     >
+                      <span className="relative">
+                        {item.label}
+                        <span className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                      </span>
+                      <FaChevronDown className={`w-4 h-4 transition-transform duration-300 ${isCategoriesOpen ? 'transform rotate-180' : ''}`} />
+                    </button>
+                    <ul className={`ml-4 mt-2 space-y-2 overflow-hidden transition-all duration-300 ease-in-out ${isCategoriesOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
+                      {categories.map((category, catIndex) => (
+                        <li key={catIndex}>
+                          <NavLink
+                            to={category.to}
+                            className={({ isActive }) => 
+                              `block text-gray-600 hover:text-blue-600 active:text-blue-800 transition duration-300 transform hover:translate-x-2 relative group ${isActive ? 'text-blue-600' : ''}`
+                            }
+                            onClick={toggleDropdown}
+                          >
+                            <span className="relative">
+                              {category.label}
+                              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            </span>
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={item.to}
+                    className={({ isActive }) => 
+                      `block text-gray-600 hover:text-blue-600 active:text-blue-800 transition duration-300 transform hover:translate-x-2 relative group ${isActive ? 'text-blue-600' : ''}`
+                    }
+                    onClick={toggleDropdown}
+                  >
+                    <span className="relative">
                       {item.label}
-                    </NavLink>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      )}
+                      <span className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                    </span>
+                  </NavLink>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 }
