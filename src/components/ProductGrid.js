@@ -1,12 +1,10 @@
 import React from 'react';
 import ProductCard from './ProductCard';
-import { useState } from 'react';
 
 function ProductGrid({ products = [], loading, error, currentPage, totalPages, onPageChange }) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  // Add a safe check for products
   if (!Array.isArray(products) || products.length === 0) {
     return <p>No products available.</p>;
   }
@@ -20,7 +18,6 @@ function ProductGrid({ products = [], loading, error, currentPage, totalPages, o
         ))}
       </div>
 
-      {/* Pagination Controls */}
       <div className="flex justify-center mt-6">
         <button
           onClick={() => onPageChange(currentPage - 1)}
@@ -43,6 +40,5 @@ function ProductGrid({ products = [], loading, error, currentPage, totalPages, o
     </div>
   );
 }
-
 
 export default ProductGrid;
