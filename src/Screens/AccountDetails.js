@@ -30,17 +30,14 @@ const AccountDetails = () => {
     e.preventDefault();
 
     if (formData.newPassword !== formData.confirmPassword) {
-      // Handle password mismatch
       alert('New passwords do not match.');
       return;
     }
 
     try {
       const response = await axios.put('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/account/profile', formData); // Adjust endpoint as needed
-      // Handle success (e.g., show a success message, redirect)
       alert('Account details updated successfully.');
     } catch (error) {
-      // Handle error (e.g., show an error message)
       console.error('Error updating account details:', error);
       alert('Error updating account details.');
     }
