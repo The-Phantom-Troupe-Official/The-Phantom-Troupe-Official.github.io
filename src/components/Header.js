@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { CiSearch } from 'react-icons/ci';
 import { IoMdClose } from 'react-icons/io';
@@ -7,14 +7,25 @@ import logoHeader from '../Images/logoheader.png';
 import Login from '../Screens/Login';
 
 function Header() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  useEffect(() => {
+    if (isSideMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isSideMenuOpen]);
+
+  const toggleSideMenu = () => {
+    setIsSideMenuOpen(!isSideMenuOpen);
   };
 
   const toggleSearch = () => {
@@ -39,9 +50,20 @@ function Header() {
   ];
 
   const categories = [
-    { label: 'Laptops', to: '/category/laptops' },
+    { label: 'System Units', to: '/category/system-units' },
+    { label: 'Desktop Pcs', to: '/category/desktoppc' },
+    { label: 'workstations', to: '/category/workstations' },
+    { label: 'Gaming PCs', to: '/category/gamingpc' },
+    { label: 'Mini PCs', to: '/category/minipcs' },
     { label: 'Monitors', to: '/category/monitors' },
-    { label: 'Accessories', to: '/category/accessories' },
+    { label: 'Computer Accesories', to: '/category/accessories' },
+    { label: 'All-In-One Computers', to: '/category/all-in-one-computers' },
+    { label: 'Laptops', to: '/category/laptops' },
+    { label: 'Macs', to: '/category/macs' },
+    { label: 'Customize PC', to: '/category/customizepc' },
+
+
+
   ];
 
   return (
@@ -51,6 +73,32 @@ function Header() {
           <img src={logoHeader} alt="YAK COMPUTERS Logo" className="h-8 w-auto mr-2" />
           <div className="text-lg md:text-2xl font-extrabold">YAK COMPUTERS</div>
         </Link>
+        
+        <nav className="hidden md:flex items-center space-x-6">
+          <NavLink
+            to="/"
+            className={({ isActive }) => 
+              `text-gray-600 hover:text-blue-600 transition duration-300 relative group ${isActive ? 'text-blue-600' : ''}`
+            }
+          >
+            <span className="relative">
+              Home
+              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </span>
+          </NavLink>
+          <NavLink
+            to="#footer"
+            className={({ isActive }) => 
+              `text-gray-600 hover:text-blue-600 transition duration-300 relative group ${isActive ? 'text-blue-600' : ''}`
+            }
+          >
+            <span className="relative">
+              Contact Us
+              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </span>
+          </NavLink>
+        </nav>
+
         <div className="flex items-center space-x-4">
           <button
             className="md:hidden text-gray-600 hover:text-blue-600 transition duration-300 focus:outline-none"
@@ -61,7 +109,7 @@ function Header() {
           </button>
           <button
             className="md:hidden text-gray-600 hover:text-blue-600 transition duration-300 focus:outline-none relative group"
-            onClick={toggleDropdown}
+            onClick={toggleSideMenu}
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +121,6 @@ function Header() {
         </div>
       </div>
 
-      {/* Search Bar */}
       <div className={`${isSearchOpen ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'} md:hidden bg-white overflow-hidden transition-all duration-300 ease-in-out`}>
         <div className="relative p-4">
           <input
@@ -93,61 +140,79 @@ function Header() {
         </div>
       </div>
 
-      {/* Dropdown Menu */}
-      <div className={`md:hidden bg-white shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${isDropdownOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <nav className="p-4">
-          <ul className="space-y-4">
-            {menuItems.map((item, index) => (
-              <li key={index}>
-                {item.onClick ? (
-                  <div>
-                    <button
-                      onClick={item.onClick}
-                      className="flex items-center justify-between w-full text-gray-600 hover:text-blue-600 active:text-blue-800 transition duration-300 group"
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity duration-300 md:hidden ${
+          isSideMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}
+        onClick={toggleSideMenu}
+      ></div>
+
+      <div
+        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out md:hidden ${
+          isSideMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <div className="p-4">
+          <button
+            onClick={toggleSideMenu}
+            className="absolute top-4 right-4 text-gray-600 hover:text-blue-600 transition duration-300"
+          >
+            <IoMdClose className="w-6 h-6" />
+          </button>
+          <nav className="mt-8">
+            <ul className="space-y-4">
+              {menuItems.map((item, index) => (
+                <li key={index}>
+                  {item.onClick ? (
+                    <div>
+                      <button
+                        onClick={item.onClick}
+                        className="flex items-center justify-between w-full text-gray-600 hover:text-blue-600 active:text-blue-800 transition duration-300 group"
+                      >
+                        <span className="relative">
+                          {item.label}
+                          <span className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                        </span>
+                        <FaChevronDown className={`w-4 h-4 transition-transform duration-300 ${isCategoriesOpen ? 'transform rotate-180' : ''}`} />
+                      </button>
+                      <ul className={`ml-4 mt-2 space-y-2 overflow-hidden transition-all duration-300 ease-in-out ${isCategoriesOpen ? 'max-h-100 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        {categories.map((category, catIndex) => (
+                          <li key={catIndex}>
+                            <NavLink
+                              to={category.to}
+                              className={({ isActive }) => 
+                                `block text-gray-600 hover:text-blue-600 active:text-blue-800 transition duration-300 transform hover:translate-x-2 relative group ${isActive ? 'text-blue-600' : ''}`
+                              }
+                              onClick={toggleSideMenu}
+                            >
+                              <span className="relative">
+                                {category.label}
+                                <span className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                              </span>
+                            </NavLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <NavLink
+                      to={item.to}
+                      className={({ isActive }) => 
+                        `block text-gray-600 hover:text-blue-600 active:text-blue-800 transition duration-300 transform hover:translate-x-2 relative group ${isActive ? 'text-blue-600' : ''}`
+                      }
+                      onClick={toggleSideMenu}
                     >
                       <span className="relative">
                         {item.label}
                         <span className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                       </span>
-                      <FaChevronDown className={`w-4 h-4 transition-transform duration-300 ${isCategoriesOpen ? 'transform rotate-180' : ''}`} />
-                    </button>
-                    <ul className={`ml-4 mt-2 space-y-2 overflow-hidden transition-all duration-300 ease-in-out ${isCategoriesOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
-                      {categories.map((category, catIndex) => (
-                        <li key={catIndex}>
-                          <NavLink
-                            to={category.to}
-                            className={({ isActive }) => 
-                              `block text-gray-600 hover:text-blue-600 active:text-blue-800 transition duration-300 transform hover:translate-x-2 relative group ${isActive ? 'text-blue-600' : ''}`
-                            }
-                            onClick={toggleDropdown}
-                          >
-                            <span className="relative">
-                              {category.label}
-                              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-                            </span>
-                          </NavLink>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : (
-                  <NavLink
-                    to={item.to}
-                    className={({ isActive }) => 
-                      `block text-gray-600 hover:text-blue-600 active:text-blue-800 transition duration-300 transform hover:translate-x-2 relative group ${isActive ? 'text-blue-600' : ''}`
-                    }
-                    onClick={toggleDropdown}
-                  >
-                    <span className="relative">
-                      {item.label}
-                      <span className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-                    </span>
-                  </NavLink>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
+                    </NavLink>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
     </header>
   );
