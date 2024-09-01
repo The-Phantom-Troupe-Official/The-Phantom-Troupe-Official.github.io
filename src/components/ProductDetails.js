@@ -64,23 +64,26 @@ const ProductDetails = () => {
             </button>
             <span className="mx-3 text-lg">{quantity}</span>
             <button
-              className="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-400"
+              className="bg-gray-700 text-white px-3 py-2 rounded-lg hover:bg-gray-600"
               onClick={() => handleQuantityChange('increment')}
               aria-label="Increase quantity"
             >
               <FaPlus />
             </button>
           </div>
-          <div className="flex flex-wrap gap-4 mt-4">
-            <button className="flex-grow bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-400" onClick={() => navigate('/checkout')}>BUY NOW</button>
-            <button className="flex-grow bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-600">ADD TO CART</button>
-            <button className="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600" aria-label="Add to favorites">
-              <FaHeart />
-            </button>
-          </div>
-          <div className="mt-4">
-            <span className="text-gray-400 text-sm sm:text-base">Categories: {product.category}</span>
-          </div>
+          <button
+            onClick={() => navigate('/cart')}
+            className="bg-blue-600 mt-4 w-full py-2 px-4 text-center rounded-lg font-semibold text-white hover:bg-blue-500 transition duration-300"
+          >
+            Add to Cart
+          </button>
+          <button
+            onClick={() => navigate('/wishlist')}
+            className="mt-2 w-full py-2 px-4 text-center rounded-lg border border-gray-500 text-white hover:bg-gray-800 transition duration-300"
+          >
+            <FaHeart className="inline mr-2" />
+            Add to Wishlist
+          </button>
         </div>
       </div>
     </div>

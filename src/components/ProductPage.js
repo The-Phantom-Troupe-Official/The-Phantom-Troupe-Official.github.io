@@ -11,11 +11,11 @@ function ProductPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const productsPerPage = 8; // Adjust as needed
+  const productsPerPage = 8;
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Reset to the first page when category changes
+    setCurrentPage(1); 
   };
 
   useEffect(() => {
@@ -24,15 +24,15 @@ function ProductPage() {
         setLoading(true);
         setError(null);
         try {
-          const response = await axios.get(`https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/products?category=${encodeURIComponent(selectedCategory)}&page=${currentPage}&limit=${productsPerPage}`);
-          
-          // Ensure products and totalPages have valid values
-          setProducts(response.data.products || []); // Default to an empty array if products is undefined
-          setTotalPages(response.data.totalPages || 1); // Default to 1 page if totalPages is undefined
+          const response = await axios.get(
+            `https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/products?category=${encodeURIComponent(selectedCategory)}&page=${currentPage}&limit=${productsPerPage}`
+          );
+          setProducts(response.data.products || []);
+          setTotalPages(response.data.totalPages || 1);
         } catch (err) {
           setError('Error fetching products');
-          setProducts([]); // Clear products in case of error
-          setTotalPages(1); // Reset to 1 page in case of error
+          setProducts([]);
+          setTotalPages(1);
         } finally {
           setLoading(false);
         }
@@ -44,7 +44,7 @@ function ProductPage() {
 
   return (
     <div className="flex">
-      <Sidebar onCategorySelect={handleCategorySelect} className="md:w-1/4 lg:w-1/5"/>
+      <Sidebar onCategorySelect={handleCategorySelect} />
       <main className="flex-grow p-4">
         <ProductGrid
           products={products}
