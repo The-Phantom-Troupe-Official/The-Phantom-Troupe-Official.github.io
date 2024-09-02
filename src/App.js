@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/' strictMode={false}>
       <HandleRedirect /> 
 
       <Routes>
