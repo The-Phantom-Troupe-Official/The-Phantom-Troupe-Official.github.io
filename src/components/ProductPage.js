@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Sidebar from './sideBar';
+import Sidebar from './Sidebar';
 import ProductGrid from './ProductGrid';
 
 function ProductPage() {
