@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Sidebar from './Sidebar';
+import Sidebar from './sideBar';
 import ProductGrid from './ProductGrid';
 
 function ProductPage() {
@@ -14,28 +14,26 @@ function ProductPage() {
   const productsPerPage = 8;
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategory(category === 'All Products' ? '' : category);
     setCurrentPage(1); 
   };
 
   useEffect(() => {
     const fetchProducts = async () => {
-      if (selectedCategory) {
-        setLoading(true);
-        setError(null);
-        try {
-          const response = await axios.get(
-            `https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/products?category=${encodeURIComponent(selectedCategory)}&page=${currentPage}&limit=${productsPerPage}`
-          );
-          setProducts(response.data.products || []);
-          setTotalPages(response.data.totalPages || 1);
-        } catch (err) {
-          setError('Error fetching products');
-          setProducts([]);
-          setTotalPages(1);
-        } finally {
-          setLoading(false);
-        }
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await axios.get(
+          `https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/products?category=${encodeURIComponent(selectedCategory)}&page=${currentPage}&limit=${productsPerPage}`
+        );
+        setProducts(response.data.products || []);
+        setTotalPages(response.data.totalPages || 1);
+      } catch (err) {
+        setError('Error fetching products');
+        setProducts([]);
+        setTotalPages(1);
+      } finally {
+        setLoading(false);
       }
     };
 
