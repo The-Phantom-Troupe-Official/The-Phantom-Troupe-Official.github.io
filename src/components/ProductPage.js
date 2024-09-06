@@ -14,7 +14,7 @@ function ProductPage() {
   const productsPerPage = 8;
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category === 'All Products' ? '' : category);
+    setSelectedCategory(category);
     setCurrentPage(1); 
   };
 
