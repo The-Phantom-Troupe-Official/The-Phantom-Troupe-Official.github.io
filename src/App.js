@@ -15,6 +15,7 @@ import './tailwind.css';
 import axios from 'axios';
 import ResetPassword from './Screens/ResetPassword';
 import HandleRedirect from './components/HandleRedirect';
+import { HashRouter,Switch } from 'react-router-dom';
 
 const apiBaseUrl = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com';
 
@@ -27,26 +28,29 @@ function App() {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
+  
+
   return (
-    <BrowserRouter basename='/' strictMode={false}>
+    <HashRouter>
       <HandleRedirect /> 
 
-      <Routes>
-        <Route exact path="/" element={<LandingPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/accountdetails" element={<AccountDetails />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/addresspage" element={<AddressPage />} />
-        <Route path="/productview" element={<ProductView />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/pccustomize" element={<PCCustomization />} />
-        <Route exact path="/cart" element={<Cart />} />
-        <Route exact path="/forgotpassword" element={<ForgotPassword />} />
-        <Route exact path="/resetpassword/:token" element={<ResetPassword />} />  
-      </Routes>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/home" component={Home} />
+        <Route path="/register" component={Register} />
+        <Route path="/accountdetails" component={AccountDetails} />
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/addresspage" component={AddressPage} />
+        <Route path="/productview" component={ProductView} />
+        <Route path="/login" component={Login} />
+        <Route path="/pccustomize" component={PCCustomization} />
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/forgotpassword" component={ForgotPassword} />
+        <Route exact path="/resetpassword/:token" component={ResetPassword} />
+        <Route component={LandingPage} />
+      </Switch>
       <p>{message}</p>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
