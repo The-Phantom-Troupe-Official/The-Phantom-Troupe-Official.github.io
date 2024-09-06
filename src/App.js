@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, Switch, HashRouter } from 'react-router-dom';
 import Home from './Screens/Home';
 import Login from './Screens/Login';
 import Register from './Screens/RegisterPage';
@@ -15,7 +15,6 @@ import './tailwind.css';
 import axios from 'axios';
 import ResetPassword from './Screens/ResetPassword';
 import HandleRedirect from './components/HandleRedirect';
-import { HashRouter,Switch } from 'react-router-dom';
 
 const apiBaseUrl = 'https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com';
 
@@ -34,7 +33,7 @@ function App() {
     <HashRouter>
       <HandleRedirect /> 
 
-      <Switch>
+      <Route>
         <Route exact path="/" component={LandingPage} />
         <Route path="/home" component={Home} />
         <Route path="/register" component={Register} />
@@ -48,7 +47,7 @@ function App() {
         <Route exact path="/forgotpassword" component={ForgotPassword} />
         <Route exact path="/resetpassword/:token" component={ResetPassword} />
         <Route component={LandingPage} />
-      </Switch>
+      </Route>
       <p>{message}</p>
     </HashRouter>
   );
