@@ -24,7 +24,7 @@ function ProductPage() {
       setError(null);
       try {
         const response = await axios.get(
-          `https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products`, 
+          `https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/`, 
           {
             params: {
               category: selectedCategory || undefined,
