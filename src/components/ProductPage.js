@@ -4,7 +4,7 @@ import Sidebar from './sideBar';
 import ProductGrid from './ProductGrid';
 
 function ProductPage() {
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ function ProductPage() {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function ProductPage() {
           `https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/`, 
           {
             params: {
-              category: selectedCategory || undefined,
+              ...(selectedCategory && { category: selectedCategory }),
               page: currentPage,
               limit: productsPerPage,
             }
@@ -49,7 +49,10 @@ function ProductPage() {
 
   return (
     <div className="flex">
-      <Sidebar onCategorySelect={handleCategorySelect} />
+      <Sidebar 
+        onCategorySelect={handleCategorySelect} 
+        selectedCategory={selectedCategory}
+      />
       <main className="flex-grow p-4">
         <ProductGrid
           products={products}
