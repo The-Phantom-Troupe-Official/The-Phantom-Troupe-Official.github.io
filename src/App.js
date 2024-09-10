@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  Route, HashRouter } from 'react-router-dom';
+import { Route, Routes, HashRouter } from 'react-router-dom';
 import Home from './Screens/Home';
 import Login from './Screens/Login';
 import Register from './Screens/RegisterPage';
@@ -27,27 +27,24 @@ function App() {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
-  
-
   return (
     <HashRouter>
       <HandleRedirect /> 
-
-      <Route>
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/home" component={Home} />
-        <Route path="/register" component={Register} />
-        <Route path="/accountdetails" component={AccountDetails} />
-        <Route path="/checkout" component={Checkout} />
-        <Route path="/addresspage" component={AddressPage} />
-        <Route path="/productview" component={ProductView} />
-        <Route path="/login" component={Login} />
-        <Route path="/pccustomize" component={PCCustomization} />
-        <Route exact path="/cart" component={Cart} />
-        <Route exact path="/forgotpassword" component={ForgotPassword} />
-        <Route exact path="/resetpassword/:token" component={ResetPassword} />
-        <Route component={LandingPage} />
-      </Route>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/accountdetails" element={<AccountDetails />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/addresspage" element={<AddressPage />} />
+        <Route path="/productview" element={<ProductView />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/pccustomize" element={<PCCustomization />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/resetpassword/:token" element={<ResetPassword />} />
+        <Route path="*" element={<LandingPage />} />
+      </Routes>
       <p>{message}</p>
     </HashRouter>
   );
