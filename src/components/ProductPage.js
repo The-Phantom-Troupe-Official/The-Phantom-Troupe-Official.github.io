@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Sidebar from './sideBar';
 import ProductGrid from './ProductGrid';
 
 function ProductPage() {
@@ -13,31 +12,49 @@ function ProductPage() {
 
   const productsPerPage = 8;
 
+  // Categories array
+  const categories = [
+    'All',
+    'System Units',
+    'Desktop PCs',
+    'Workstations',
+    'Gaming PCs',
+    'Mini PCs',
+    'Monitors',
+    'Computer Accessories',
+    'All-in-One Computers',
+    'Laptops',
+    'Macs',
+    'Customized PCs',
+  ];
+
+  // Handle category selection
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category === 'All' ? null : category); // Set to null if 'All' is selected
+    setSelectedCategory(category === 'All' ? null : category);
     setCurrentPage(1); // Reset to first page on category change
   };
 
+  // Fetch products based on selected category and current page
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       setError(null);
       try {
         const response = await axios.get(
-          `https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/products/`, 
+          `https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/products/`,
           {
             params: {
-              ...(selectedCategory && { category: selectedCategory }), 
+              ...(selectedCategory && { category: selectedCategory }),
               page: currentPage,
               limit: productsPerPage,
-            }
+            },
           }
         );
-        setProducts(response.data.products || []); // Handle empty product list
+        setProducts(response.data.products || []);
         setTotalPages(response.data.totalPages || 1);
       } catch (err) {
         setError('Error fetching products');
-        setProducts([]); // Reset products on error
+        setProducts([]);
         setTotalPages(1);
       } finally {
         setLoading(false);
@@ -45,24 +62,34 @@ function ProductPage() {
     };
 
     fetchProducts();
-  }, [selectedCategory, currentPage]); // Trigger re-fetch when category or page changes
+  }, [selectedCategory, currentPage]);
 
   return (
-    <div className="flex">
-      <Sidebar 
-        onCategorySelect={handleCategorySelect} 
-        selectedCategory={selectedCategory}
+    <div className="flex flex-col p-4">
+      {/* Category Selection Buttons */}
+      <div className="flex space-x-4 mb-4">
+        {categories.map((category) => (
+          <button
+            key={category}
+            onClick={() => handleCategorySelect(category)}
+            className={`p-2 border rounded hover:bg-gray-200 ${
+              selectedCategory === category ? 'bg-gray-300' : ''
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      {/* Product Grid */}
+      <ProductGrid
+        products={products}
+        loading={loading}
+        error={error}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => setCurrentPage(page)}
       />
-      <main className="flex-grow p-4">
-        <ProductGrid
-          products={products}
-          loading={loading}
-          error={error}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
-      </main>
     </div>
   );
 }
