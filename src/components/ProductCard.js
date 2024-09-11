@@ -18,7 +18,7 @@ function ProductCard({ product }) {
   const addToCart = async (e) => {
     e.stopPropagation();
     try {
-      await axios.post('https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/cart/', { productId: product.id, quantity: 1 });
+      await axios.post(`https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/cart/add`, { productId: product.id, quantity: 1 });
       alert('Product added to cart!');
     } catch (err) {
       alert('Error adding product to cart');
@@ -27,12 +27,14 @@ function ProductCard({ product }) {
 
   if (!product) return <p>Product not found</p>;
 
+  const firstImage = product.images && product.images.length > 0 ? product.images[0] : product.image; // Fallback to `product.image` if no `images` array
+
   return (
     <div className="bg-white border rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 max-w-sm mx-auto">
       <div onClick={viewProduct} className="cursor-pointer">
         <div className="relative aspect-w-1 aspect-h-1">
           <img 
-            src={product.image} 
+            src={firstImage} 
             alt={product.name} 
             className="absolute w-full h-full object-cover"
           />
