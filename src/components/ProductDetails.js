@@ -10,12 +10,13 @@ const ProductDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/product/${id}`)
+    axios.get(`https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/${id}`)
       .then(response => {
         setProduct(response.data);
       })
       .catch(error => {
         console.error('Error fetching product data:', error);
+        setProduct(null); // Set product to null on error
       });
   }, [id]);
 
@@ -27,15 +28,35 @@ const ProductDetails = () => {
     }
   };
 
-  if (!product) {
+  const handleAddToCart = () => {
+    // Add feedback logic here (e.g., show notification)
+    alert(`${product.name} added to cart!`);
+    navigate('/cart');
+  };
+
+  const handleAddToWishlist = () => {
+    // Add feedback logic here (e.g., show notification)
+    alert(`${product.name} added to wishlist!`);
+    navigate('/wishlist');
+  };
+
+  if (product === null) {
     return <div className="text-center text-white p-6">Loading...</div>;
+  }
+
+  if (!product) {
+    return <div className="text-center text-red-500 p-6">Product not found.</div>;
   }
 
   return (
     <div className="p-4 sm:p-6 bg-gray-900 text-white max-w-4xl mx-auto rounded-lg">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <img src={product.image} alt={product.name} className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-lg"/>
+          <img
+            src={product.images[0]} // Assuming multiple images are available, display the first one
+            alt={product.name}
+            className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-lg"
+          />
         </div>
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold mt-4 md:mt-0">{product.name}</h1>
@@ -49,7 +70,7 @@ const ProductDetails = () => {
             <span className="ml-2 text-gray-400 font-normal text-sm sm:text-base">{product.reviews} Customer Reviews</span>
           </div>
           <div className="border-b border-gray-700 my-4">
-            <p className='font-medium text-base sm:text-lg'>Description</p>
+            <p className="font-medium text-base sm:text-lg">Description</p>
             <p className="text-gray-400 font-normal text-sm sm:text-base">
               {product.description}
             </p>
@@ -72,13 +93,13 @@ const ProductDetails = () => {
             </button>
           </div>
           <button
-            onClick={() => navigate('/cart')}
+            onClick={handleAddToCart}
             className="bg-blue-600 mt-4 w-full py-2 px-4 text-center rounded-lg font-semibold text-white hover:bg-blue-500 transition duration-300"
           >
             Add to Cart
           </button>
           <button
-            onClick={() => navigate('/wishlist')}
+            onClick={handleAddToWishlist}
             className="mt-2 w-full py-2 px-4 text-center rounded-lg border border-gray-500 text-white hover:bg-gray-800 transition duration-300"
           >
             <FaHeart className="inline mr-2" />
