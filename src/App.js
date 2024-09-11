@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, HashRouter } from 'react-router-dom';
+import { Route, Routes, BrowserRouter } from 'react-router-dom'; // Switched to BrowserRouter
 import Home from './Screens/Home';
 import Login from './Screens/Login';
 import Register from './Screens/RegisterPage';
@@ -24,11 +24,14 @@ function App() {
   useEffect(() => {
     axios.get(`${apiBaseUrl}/`)
       .then(response => setMessage(response.data.message))
-      .catch(error => console.error('Error fetching data:', error));
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setMessage('Error fetching data. Please try again later.');
+      });
   }, []);
 
   return (
-    <HashRouter>
+    <BrowserRouter> 
       <HandleRedirect /> 
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -37,16 +40,16 @@ function App() {
         <Route path="/accountdetails" element={<AccountDetails />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/addresspage" element={<AddressPage />} />
-        <Route path="/productview" element={<ProductView />} />
+        <Route path="/productview/:id" element={<ProductView />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/pccustomize" element={<PCCustomization />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword/:token" element={<ResetPassword />} />
-        <Route path="*" element={<LandingPage />} />
+        <Route path="*" element={<LandingPage />} /> 
       </Routes>
       <p>{message}</p>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
