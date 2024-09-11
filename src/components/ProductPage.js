@@ -14,8 +14,8 @@ function ProductPage() {
   const productsPerPage = 8;
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
-    setCurrentPage(1);
+    setSelectedCategory(category === 'All' ? null : category); // Set to null if 'All' is selected
+    setCurrentPage(1); // Reset to first page on category change
   };
 
   useEffect(() => {
@@ -24,20 +24,20 @@ function ProductPage() {
       setError(null);
       try {
         const response = await axios.get(
-          `https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/`, 
+          `https://limitless-garden-98697-76e7ed60fbc8.herokuapp.com/products/products/`, 
           {
             params: {
-              ...(selectedCategory && { category: selectedCategory }),
+              ...(selectedCategory && { category: selectedCategory }), 
               page: currentPage,
               limit: productsPerPage,
             }
           }
         );
-        setProducts(response.data.products || []);
+        setProducts(response.data.products || []); // Handle empty product list
         setTotalPages(response.data.totalPages || 1);
       } catch (err) {
         setError('Error fetching products');
-        setProducts([]);
+        setProducts([]); // Reset products on error
         setTotalPages(1);
       } finally {
         setLoading(false);
@@ -45,7 +45,7 @@ function ProductPage() {
     };
 
     fetchProducts();
-  }, [selectedCategory, currentPage]);
+  }, [selectedCategory, currentPage]); // Trigger re-fetch when category or page changes
 
   return (
     <div className="flex">
